@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="meanApp">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, inital-scale=1">
+	<title>MEAN MVC</title>
+	<!-- build:css style.css -->
+	<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+	<link rel="stylesheet" type="text/css" href="assets/libs/angular-material/angular-material.css">
+	<!-- endbuild -->
+</head>
+
+<body>
+
+	<section class="site-content" layout="row" layout-align="center start" layout-fill layout-padding ng-cloak>
+
+		<div id="todo-app" class="md-inline-form" layout="column" layout-align="center" layout-margin layout-padding flex="60" ng-controller="todoCtrl as todo">
+			<md-toolbar flex>
+				<div layout-align="center" class="md-toolbar-tools">
+					<h1>TODO</h1>
+				</div>
+				<md-content layout-padding>
+					<form name="todo.itemForm" ng-submit="todo.submit()">
+						<md-input-container>
+							<label>What needs to be done?</label>
+							<input ng-model="todo.newItem">
+						</md-input-container>
+					</form>
+					<div id="todo-list" ng-show="todo.todos.length">
+
+					<md-list>
+						<md-list-item ng-repeat="item in todo.todos">
+							<md-checkbox ng-model="item.completed"></md-checkbox>
+							<p ng-bind="item.name"></p>
+						</md-list-item>
+					</md-list>
+					<div>
+				</md-content>
+			</md-toolbar>
+		</div>
+
+	</section>
+
+
+	<!-- build:vendor js/lib.js -->
+	<script src="./assets/libs/angular/angular.js"></script>
+	<script src="./assets/libs/angular-aria/angular-aria.js"></script>
+	<script src="./assets/libs/angular-animate/angular-animate.js"></script>
+	<script src="./assets/libs/angular-material/angular-material.js"></script>
+	<!-- endbuild -->
+	<!-- build:js js/ngscripts.js -->
+	<script src="./assets/js/ng-scripts.js"></script>
+	<!-- endbuild -->
+</body>
+
+</html>
