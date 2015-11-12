@@ -5,7 +5,7 @@ var plugins = require('gulp-load-plugins')({
 });
 
 var paths = {
-    style: 'public/src/assets/css/style.css',
+    style: 'public/src/assets/css/main.css',
     scripts: ['public/src/app/**/*.js', '!public/src/app/**/*Spec.js'],
     ngscriptPath: 'public/src/assets/js/',
     ngscriptName: 'ng-scripts.js',
@@ -13,6 +13,7 @@ var paths = {
     indexRoot: './public/src/',
     partials: 'public/src/app/**/*.html',
     assets: ['public/src/assets/**', '!public/src/assets/{js,js/**}', '!public/src/assets/{libs,libs/**}', '!public/src/assets/{css,css/**}'],
+    assetsPrefix: 'assets/',
     build: 'public/build/',
     purifycssIgnore: 'public/src/assets/css/.purifycssIgnore'
 };
@@ -40,10 +41,7 @@ gulp.task('html', function () {
 gulp.task('usemin', ['bundle-scripts'], function () {
     gulp.src(paths.index)
         .pipe(plugins.usemin({
-            css: ['concat', plugins.purifycss(paths.scripts.concat(paths.index, paths.partials, paths.purifycssIgnore), {
-                info: true,
-                rejected: true
-            }), plugins.autoprefixer('last 2 versions'), plugins.minifyCss({
+            css: ['concat', plugins.autoprefixer('last 2 versions'), plugins.minifyCss({
                 keepSpecialComments: 0
             })],
             vendor: ['concat', plugins.stripDebug(), plugins.uglify()],
@@ -65,7 +63,7 @@ gulp.task('clean-scripts', function () {
 });
 
 gulp.task('copy-assets', function () {
-    return gulp.src(paths.assets).pipe(gulp.dest(paths.build));
+    return gulp.src(paths.assets).pipe(gulp.dest(paths.build + paths.assetsPrefix));
 });
 
 gulp.task('build', ['bundle-scripts', 'usemin', 'copy-assets']);
@@ -87,7 +85,7 @@ gulp.task('connectDev', ['bundle-scripts'], function () {
 
 gulp.task('connectDist', function () {
     plugins.connect.server({
-        root: ['build'],
+        root: [paths.build],
         port: 8080
     });
 });

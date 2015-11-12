@@ -18,4 +18,9 @@ app.controller('todoCtrl', [function () {
 		ctrl.newItem = "";
 		ctrl.itemForm.$setPristine();
 	}
+	
+	this.delete = function (item) {		
+		var index = ctrl.todos.indexOf(item);
+		ctrl.todos.splice(index, 1);
+	}
 }]);

@@ -30,9 +30,10 @@
 					<div id="todo-list" ng-show="todo.todos.length">
 
 					<md-list>
-						<md-list-item ng-repeat="item in todo.todos">
+						<md-list-item ng-repeat="item in todo.todos" ng-mouseenter="hover=true" ng-mouseleave="hover=false">
 							<md-checkbox ng-model="item.completed"></md-checkbox>
-							<p ng-bind="item.name"></p>
+							<p ng-bind="item.name" ng-class="{'todo-complete': item.completed}"></p>
+							<md-icon md-svg-src='/assets/icons/ic_close_black_24px.svg' ng-show="hover" ng-click="todo.delete(item)"></md-icon>
 						</md-list-item>
 					</md-list>
 					<div>
@@ -50,6 +51,7 @@
 	<script src="./assets/libs/angular-material/angular-material.js"></script>
 	<!-- endbuild -->
 	<!-- build:js js/ngscripts.js -->
+	<script src="./assets/js/app-script.js"></script>
 	<script src="./assets/js/ng-scripts.js"></script>
 	<!-- endbuild -->
 </body>
